@@ -38,17 +38,19 @@
     future_incompatible,
     nonstandard_style
 )]
+#![feature(const_generics)]
+#![allow(incomplete_features)]
 
 #[cfg(not(target_arch = "spirv"))]
 #[macro_use]
 pub extern crate spirv_std_macros;
 
+pub mod image;
+pub(crate) mod sealed;
 pub mod storage_class;
-mod textures;
 
 pub use glam;
 pub use num_traits;
-pub use textures::*;
 
 #[cfg(all(not(test), target_arch = "spirv"))]
 #[panic_handler]
