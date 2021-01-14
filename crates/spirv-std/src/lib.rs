@@ -1,7 +1,8 @@
 #![no_std]
 #![cfg_attr(
     target_arch = "spirv",
-    feature(asm, register_attr, repr_simd, core_intrinsics, lang_items),
+    feature(asm, const_generics, register_attr, repr_simd, core_intrinsics, lang_items),
+    allow(incomplete_features),
     register_attr(spirv)
 )]
 // Our standard Clippy lints that we use in Embark projects, we opt out of a few that are not appropriate for the specific crate (yet)
@@ -38,13 +39,12 @@
     future_incompatible,
     nonstandard_style
 )]
-#![feature(const_generics)]
-#![allow(incomplete_features)]
 
 #[cfg(not(target_arch = "spirv"))]
 #[macro_use]
 pub extern crate spirv_std_macros;
 
+#[cfg(target_arch = "spirv")]
 pub mod image;
 pub(crate) mod sealed;
 pub mod storage_class;
